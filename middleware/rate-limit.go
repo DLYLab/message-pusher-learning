@@ -90,7 +90,7 @@ func GlobalAPIRateLimit() func(c *gin.Context) {
 	return rateLimitFactory(common.GlobalApiRateLimitNum, common.GlobalApiRateLimitDuration, "GA")
 }
 
-func CriticalRateLimit() func(c *gin.Context) {
+func CriticalRateLimit() func(c *gin.Context) {  // 20 / 20 * 60s
 	return rateLimitFactory(common.CriticalRateLimitNum, common.CriticalRateLimitDuration, "CT")
 }
 

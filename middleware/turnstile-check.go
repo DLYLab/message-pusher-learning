@@ -13,16 +13,16 @@ type turnstileCheckResponse struct {
 	Success bool `json:"success"`
 }
 
-func TurnstileCheck() gin.HandlerFunc {
+func TurnstileCheck() gin.HandlerFunc {  // 在执行高风险操作（如注册、登录、发验证码）之前，验证请求是真实人类发出的，还是**自动化脚本（机器人）**发出的。（未开启）
 	return func(c *gin.Context) {
-		if common.TurnstileCheckEnabled {
-			session := sessions.Default(c)
-			turnstileChecked := session.Get("turnstile")
+		if common.TurnstileCheckEnabled {  // 1. 检查全局配置：是否开启了人机验证
+			session := sessions.Default(c)  // 2. 获取当前请求的 Session
+			turnstileChecked := session.Get("turnstile")  // 3. 优化体验：检查 Session 中是否记录过“已验证成功”
 			if turnstileChecked != nil {
 				c.Next()
 				return
 			}
-			response := c.Query("turnstile")
+			response := c.Query("turnstile")  // 4. 获取前端提交的验证令牌（通常从 URL 参数中获取）
 			if response == "" {
 				c.JSON(http.StatusOK, gin.H{
 					"success": false,
