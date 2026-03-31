@@ -20,3 +20,4 @@
 [SYS] 2026/03/30 - 15:52:03 | failed to refresh access token: Get "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx350a1b4fd6364d1c&secret=29986cd82fe3c6db83e4bbbdbe4aee22": context deadline exceeded (Client.Timeout exceeded while awaiting headers) 
 [SYS] 2026/03/30 - 16:08:58 | token for  is blank! 
 [SYS] 2026/03/30 - 16:16:11 | failed to refresh access token: Get "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid= wx350a1b4fd6364d1c &secret=29986cd82fe3c6db83e4bbbdbe4aee22": net/http: HTTP/1.x transport connection broken: malformed HTTP status code "&secret=29986cd82fe3c6db83e4bbbdbe4aee22" 
+[SYS] 2026/03/31 - 19:34:50 | failed to refresh access token: Get "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx350a1b4fd6364d1c&secret=29986cd82fe3c6db83e4bbbdbe4aee22": dial tcp: lookup api.weixin.qq.com on 127.0.0.53:53: server misbehaving 
