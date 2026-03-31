@@ -1,0 +1,37 @@
+message-pusher/
+├── main.go                 # 🚀 程序主入口：负责读取配置、初始化数据库、启动 Gin Web 服务。
+├── router/                 # 🛣️ 路由层：定义 API 网址和具体代码处理函数的映射关系。
+│   ├── main.go             # 注册所有路由的入口。
+│   ├── api-router.go       # 后端数据 API 路由（如 /api/user, /push 等）。
+│   └── web-router.go       # 静态网页资源路由（给前端 React 页面用的）。
+├── middleware/             # 🛡️ 中间件层：在请求到达 Controller 之前的“安检”逻辑。
+│   ├── auth.go             # 身份鉴权：检查 Token 是否合法，区分管理员和普通用户。
+│   ├── rate-limit.go       # 并发限流：防止接口被恶意高频调用刷爆（极具面试价值）。
+│   └── cache.go            # 缓存拦截：针对部分高频读取接口做内存级缓存。
+├── controller/             # 🧠 控制层：接收参数、基础校验、组装响应。
+│   ├── message.go          # 消息入口：解析 /push 请求，将消息推入处理队列。
+│   ├── user.go             # 用户管理：登录、注册、修改密码等逻辑。
+│   ├── channel.go          # 通道管理：对数据库里的推送配置进行增删改查。
+│   └── wechat.go           # 微信回调：专门处理微信服务器主动发来的验证请求。
+├── channel/                # 🏭 核心业务层 (Domain)：处理各种具体的第三方推送逻辑。
+│   ├── main.go             # 调度中心：定义了统一的 Send() 接口，根据不同类型派发任务。
+│   ├── message-queue.go    # 异步队列：使用 Go channel 实现的高并发消息缓冲池。
+│   ├── token-store.go      # 凭证管理：在内存中缓存各平台的 access_token 并自动刷新。
+│   ├── email.go            # 邮件发送逻辑封装（SMTP）。
+│   ├── wechat-test-account.go # 微信测试号发送逻辑。
+│   ├── ding.go             # 钉钉机器人发送逻辑。
+│   └── ...                 # (其他各平台的具体实现逻辑，如飞书、Telegram 等)
+├── model/                  # 💾 数据层 (ORM)：直接与 SQLite/MySQL 数据库交互。
+│   ├── main.go             # 数据库连接池初始化，负责建表和自动迁移 (AutoMigrate)。
+│   ├── user.go             # 用户表的增删改查 SQL 封装。
+│   ├── message.go          # 消息历史记录表的 SQL 封装。
+│   └── channel.go          # 推送通道配置表的 SQL 封装。
+├── common/                 # 🧰 公共工具库：全栈通用的底层组件。
+│   ├── email.go            # 底层 SMTP 拨号与握手实现。
+│   ├── redis.go            # Redis 连接池初始化与基础操作。
+│   ├── logger.go           # 全局日志打印工具。
+│   ├── utils.go            # 字符串处理、随机数生成等通用小工具。
+│   └── constants.go        # 全局静态常量定义。
+└── web/                    # 🖥️ 前端工程：一个完整的 React SPA 应用（通过 npm 构建）。
+    ├── src/pages/          # 各个页面级组件（如后台首页、通道列表页等）。
+    └── src/components/     # 可复用的 UI 组件（如侧边栏、表格、图表等）。
