@@ -9,6 +9,8 @@ import (
 	"time"
 )
 
+// 请求次数限制
+
 var timeFormat = "2006-01-02T15:04:05.000Z"
 
 var inMemoryRateLimiter common.InMemoryRateLimiter

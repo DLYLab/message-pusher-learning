@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-type verificationValue struct {
+type verificationValue struct { // 验证码 和 过期时间
 	code string
 	time time.Time
 }
@@ -38,7 +38,7 @@ func RegisterVerificationCodeWithKey(key string, code string, purpose string) {
 		code: code,
 		time: time.Now(),
 	}
-	if len(verificationMap) > verificationMapMaxSize {
+	if len(verificationMap) > verificationMapMaxSize {  // 内存中最多10条验证
 		removeExpiredPairs()
 	}
 }

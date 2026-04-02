@@ -107,7 +107,7 @@ type BriefChannel struct {
 	Description string `json:"description"`
 }
 
-func GetChannelById(id int, userId int, selectAll bool) (*Channel, error) {
+func GetChannelById(id int, userId int, selectAll bool) (*Channel, error) {  // 从channel的id和userid获取channel完整条目
 	if id == 0 || userId == 0 {
 		return nil, errors.New("id 或 userId 为空！")
 	}
@@ -121,7 +121,7 @@ func GetChannelById(id int, userId int, selectAll bool) (*Channel, error) {
 	return &c, err
 }
 
-func GetChannelByName(name string, userId int) (*Channel, error) {
+func GetChannelByName(name string, userId int) (*Channel, error) { //  从channel的Name和userid获取channel完整条目
 	if name == "" || userId == 0 {
 		return nil, errors.New("name 或 userId 为空！")
 	}
@@ -130,12 +130,12 @@ func GetChannelByName(name string, userId int) (*Channel, error) {
 	return &c, err
 }
 
-func GetTokenStoreChannels() (channels []*Channel, err error) {
+func GetTokenStoreChannels() (channels []*Channel, err error) {  // 获取需要更新token的channel条目
 	err = DB.Where("type in ?", []string{TypeWeChatCorpAccount, TypeWeChatTestAccount, TypeLarkApp}).Find(&channels).Error
 	return channels, err
 }
 
-func GetTokenStoreChannelsByUserId(userId int) (channels []*Channel, err error) {
+func GetTokenStoreChannelsByUserId(userId int) (channels []*Channel, err error) { // 通过userid获取需要更新token的channel条目
 	err = DB.Where("user_id = ?", userId).Where("type = ? or type = ?", TypeWeChatCorpAccount, TypeWeChatTestAccount).Find(&channels).Error
 	return channels, err
 }

@@ -1,4 +1,4 @@
-package model
+package model  // 数据库处理
 
 import (
 	"gorm.io/driver/mysql"
@@ -8,9 +8,9 @@ import (
 	"os"
 )
 
-var DB *gorm.DB
+var DB *gorm.DB 
 
-func createRootAccountIfNeed() error {
+func createRootAccountIfNeed() error {  // 创建 Root 用户
 	var user User
 	//if user.Status != common.UserStatusEnabled {
 	if err := DB.First(&user).Error; err != nil {
@@ -36,7 +36,7 @@ func CountTable(tableName string) (num int64) {
 	return
 }
 
-func InitDB() (err error) {
+func InitDB() (err error) {  // 初始化数据库
 	var db *gorm.DB
 	if os.Getenv("SQL_DSN") != "" {
 		// Use MySQL
@@ -80,7 +80,7 @@ func InitDB() (err error) {
 	return err
 }
 
-func CloseDB() error {
+func CloseDB() error { // 关闭数据库
 	sqlDB, err := DB.DB()
 	if err != nil {
 		return err

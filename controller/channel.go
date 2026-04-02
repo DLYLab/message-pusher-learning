@@ -1,4 +1,4 @@
-package controller
+package controller  // 路由具体执行的操作
 
 import (
 	"message-pusher/channel"
@@ -10,7 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetAllChannels(c *gin.Context) {
+func GetAllChannels(c *gin.Context) {  // 通过解析路由，执行后端操作，并返回响应
 	if c.Query("brief") != "" {
 		GetBriefChannels(c)
 		return

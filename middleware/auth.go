@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func authHelper(c *gin.Context, minRole int) {
+func authHelper(c *gin.Context, minRole int) {  // 用户鉴权
 	session := sessions.Default(c)
 	username := session.Get("username")
 	role := session.Get("role")
